@@ -1,4 +1,4 @@
-<div class="join">
+<div class="join flex-wrap">
   {% if page_object.has_previous %}
   <a href="{% url base_url %}?page=1"><button class="join-item btn">&laquo; first</button></a>
   <a href="?page={{ page_object.previous_page_number }}"><button class="join-item btn">&laquo; Previous</button></a>

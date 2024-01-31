@@ -1,7 +1,7 @@
 {% extends master_template %}
 
 {% block master %}
-<div class="drawer z-30 " data-theme="">
+<div class="drawer z-30" data-theme="">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
         <!-- Page content here -->
@@ -12,12 +12,19 @@
                         <span class="icon-[iconamoon--menu-burger-horizontal-bold] h-8 w-8 cursor-pointer">
                         </span>
                     </label>
-                    <a class="btn btn-ghost text-xl" href="{% url 'web:home' %}">My Website</a>
+                    {# logo #}
+                    <div class="hidden md:block">
+                        <a class="btn btn-ghost text-xl" href="{% url 'web:home' %}">My Website</a>
+                    </div>
                 </div>
                 <div class="flex-none gap-2">
-                    <a class="btn btn-ghost text-xl" href="{% url 'blog:index' %}">Blogs</a>
+                    {# links #}
+                    <div class="hidden md:block">
+                        <a class="btn btn-ghost text-xl" href="{% url 'blog:list' %}">Blogs</a>
+                    </div>
 
-                    <div class="form-control">
+                    {# search #}
+                    <div class="form-control hidden lg:block">
                         <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
                     </div>
                     <div class="dropdown dropdown-end">
@@ -41,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div class="p-8">
+            <div class="p-4 md:p-8">
                 {% block content %}{% endblock content %}
             </div>
         </div>
@@ -57,4 +64,5 @@
         </ul>
     </div>
 </div>
+
 {% endblock master %}

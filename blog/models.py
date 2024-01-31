@@ -24,6 +24,7 @@ class Category(common):
 
 class Tag(common):
     name = models.CharField(max_length=30, unique=True)
+    slug = models.SlugField(max_length=30, unique=True)
 
 
 class Blog(common):
@@ -54,5 +55,6 @@ class Blog(common):
     )
     tags = models.ManyToManyField(
         Tag,
+        related_name="blogs",
         verbose_name="tags",
     )

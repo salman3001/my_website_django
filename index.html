@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}{% endblock title %}</title>
 
-    {% block meta %} {% endblock meta %} {% block scripts %}{% endblock scripts
-    %} 
-  </head>
-  <body>
-    {% block style %}{% endblock style %}
-    {% block content %}{% endblock content %}
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{% endblock %}</title>
+  {% block meta %} {% endblock %}
+  {% block scripts %}{% endblock %}
+</head>
+
+<body>
+  {% block style %}{% endblock %}
+  {% block master %}{% endblock %}
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
