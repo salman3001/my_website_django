@@ -1,0 +1,18 @@
+<div class="join">
+  {% if page_object.has_previous %}
+  <a href="{% url base_url %}?page=1"><button class="join-item btn">&laquo; first</button></a>
+  <a href="?page={{ page_object.previous_page_number }}"><button class="join-item btn">&laquo; Previous</button></a>
+  {% endif %}
+
+
+  {% for p in page_object.paginator.page_range %}
+  <a href="{% url base_url %}?page={{p}}"><button class="join-item btn">{{p}}</button></a>
+  {% endfor %}
+
+
+  {% if page_object.has_next %}
+  <a href="{% url base_url %}?page={{page_object.next_page_number}}"><button class="join-item btn">Next
+      &raquo;</button></a>
+  <a href="?page={{ page_object.paginator.num_pages }}"><button class="join-item btn">Last &raquo;</button></a>
+  {% endif %}
+</div>

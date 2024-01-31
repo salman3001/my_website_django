@@ -1,0 +1,10 @@
+{% extends base_template %}
+
+{% block content %}
+<h1 class="text-4xl font-bold">{{blog.title}}</h1>
+<br />
+<p>{{blog.short_desc}}</p>
+<br />
+<br />
+<p>{{blog.content|safe}}</p>
+{% endblock content %}
