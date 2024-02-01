@@ -11,8 +11,8 @@ class BlogList(ListView):
     base_template = "web/base.html"
     model = Blog
     context_object_name = "blogs"
-    template_name = "blog/blog_list.html"
-    paginate_by = 2
+    template_name = "blog/bloglist.html"
+    paginate_by = 1
     search_form = BlogSearchForm()
 
     def get_context_data(self, **kwargs) -> dict[str, any]:

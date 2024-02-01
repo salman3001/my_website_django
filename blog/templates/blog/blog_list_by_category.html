@@ -1,5 +1,5 @@
 {% extends base_template %}
 
 {% block content %}
-{% include "blog/base_blog_list.html" with title='Blogs' title_prefix=category.name base_url='blog:list-by-category' %}
+{% include "blog/base_blog_list.html" with title='Blogs' title_prefix=category.name %}
 {% endblock content %}
