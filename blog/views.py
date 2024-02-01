@@ -2,25 +2,67 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from .models import Blog, Category, Tag
 from django.views.generic import ListView, DetailView
+from .forms import BlogSearchForm
 
 # Create your views here.
 
 
-class BlogListView(ListView):
+class BlogList(ListView):
     base_template = "web/base.html"
     model = Blog
     context_object_name = "blogs"
     template_name = "blog/blog_list.html"
-    paginate_by = 1
+    paginate_by = 2
+    search_form = BlogSearchForm()
 
     def get_context_data(self, **kwargs) -> dict[str, any]:
         context = super().get_context_data(**kwargs)
         context["base_template"] = self.base_template
         context["categories"] = Category.objects.all()
+        context["search_form"] = self.search_form
         return context
 
 
-class BlogDetailView(DetailView):
+class BlogListByCategory(BlogList):
+    template_name = "blog/blog_list_by_category.html"
+
+    def get_queryset(self):
+        query_set = super().get_queryset()
+        return query_set.filter(category__slug=self.kwargs.get("slug"))
+
+    def get_context_data(self, **kwargs) -> dict[str, any]:
+        context = super().get_context_data(**kwargs)
+        context["category"] = Category.objects.get(slug=self.kwargs.get("slug"))
+        return context
+
+
+class BlogListByTag(BlogList):
+    template_name = "blog/blog_list_by_tag.html"
+
+    def get_queryset(self):
+        query_set = super().get_queryset()
+        return query_set.filter(tags__slug=self.kwargs.get("slug"))
+
+    def get_context_data(self, **kwargs) -> dict[str, any]:
+        context = super().get_context_data(**kwargs)
+        context["tag"] = Tag.objects.get(slug=self.kwargs.get("slug"))
+        return context
+
+
+class BlogListBySearch(BlogList):
+    template_name = "blog/blog_list_by_search.html"
+
+    def get_queryset(self):
+        query_set = super().get_queryset()
+        return query_set.filter(title__icontains=self.request.GET.get("search"))
+
+    def get_context_data(self, **kwargs) -> dict[str, any]:
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = BlogSearchForm(self.request.GET)
+        return context
+
+
+class BlogDetail(DetailView):
     base_template = "web/base.html"
     model = Blog
     context_object_name = "blog"
@@ -30,18 +72,4 @@ class BlogDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["base_template"] = self.base_template
-        return context
-
-
-class TagDetailView(DetailView):
-    base_template = "web/base.html"
-    model = Tag
-    context_object_name = "tag"
-    template_name = "blog/tag_detail.html"
-    slug_field = "slug"
-
-    def get_context_data(self, **kwargs) -> dict[str, any]:
-        context = super().get_context_data(**kwargs)
-        context["base_template"] = self.base_template
-        context["categories"] = Category.objects.all()
         return context

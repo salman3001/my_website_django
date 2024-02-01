@@ -4,12 +4,17 @@ from . import views
 app_name = "blog"
 
 urlpatterns = [
-    path("", views.BlogListView.as_view(), name="list"),
-    path("<slug:slug>/", views.BlogDetailView.as_view(), name="detail"),
-    path("tag/<slug:slug>/", views.TagDetailView.as_view(), name="tag-detail"),
+    path("", views.BlogList.as_view(), name="list"),
+    path(
+        "search/",
+        views.BlogListBySearch.as_view(),
+        name="list-by-search",
+    ),
+    path("<slug:slug>/", views.BlogDetail.as_view(), name="detail"),
+    path("tag/<slug:slug>/", views.BlogListByTag.as_view(), name="list-by-tag"),
     path(
         "category/<slug:slug>/",
-        views.TagDetailView.as_view(),
-        name="category-detail",
+        views.BlogListByCategory.as_view(),
+        name="list-by-category",
     ),
 ]

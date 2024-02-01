@@ -1,0 +1,5 @@
+{% extends base_template %}
+
+{% block content %}
+{% include "blog/base_blog_list.html" with title='Blogs' title_prefix=tag.name blogs=blogs blogs=blogs categories=categories form=search_form only %}
+{% endblock content %}

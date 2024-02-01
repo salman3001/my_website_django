@@ -1,0 +1,7 @@
+{% for field in form %}
+<div class="[&_input]:input [&_input]:input-bordered [&_input]:border-base-300">
+    {{form.label_tag}}
+    {{field}}
+    <span class="text-red-500">{{form.errors}}</span>
+</div>
+{% endfor %}
