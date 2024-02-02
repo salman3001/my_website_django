@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form-control input:not([type="checkbox"]) {
+  @apply input input-bordered;
+}
+
+.form-control input[type="checkbox"] {
+  @apply checkbox checkbox-xs;
+}
+
+.form-control input[type="file"] {
+  @apply file-input w-full max-w-xs file-input-sm file-input-ghost;
+}
+
+.form-control select {
+  @apply select select-bordered max-w-xs;
+}
+
+.error-input input {
+  @apply input-error;
+}

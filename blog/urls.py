@@ -10,6 +10,11 @@ urlpatterns = [
         views.BlogListBySearch.as_view(),
         name="list-by-search",
     ),
+    path(
+        "create/",
+        views.BlogCreate.as_view(),
+        name="create",
+    ),
     path("<slug:slug>/", views.BlogDetail.as_view(), name="detail"),
     path("tag/<slug:slug>/", views.BlogListByTag.as_view(), name="list-by-tag"),
     path(

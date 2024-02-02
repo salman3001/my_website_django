@@ -1,14 +1,22 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 
 
 class common(models.Model):
-    title = models.CharField(max_length=70, blank=True, null=True)
-    keywordz = models.CharField(max_length=70, blank=True, null=True)
-    desc = models.CharField(max_length=150, blank=True, null=True)
-    struct_data = models.CharField(max_length=400, blank=True, null=True)
+    meta_title = models.CharField(
+        max_length=70,
+        blank=True,
+        null=True,
+    )
+    meta_keywords = models.CharField(max_length=70, blank=True, null=True)
+    meta_desc = models.CharField(
+        max_length=150, blank=True, null=True, verbose_name="Meta description"
+    )
+    meta_struct_data = models.CharField(
+        max_length=400, blank=True, null=True, verbose_name="Structured data"
+    )
 
     class Meta:
         abstract = True
@@ -21,10 +29,16 @@ class Category(common):
         unique=True,
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Tag(common):
     name = models.CharField(max_length=30, unique=True)
     slug = models.SlugField(max_length=30, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Blog(common):
@@ -34,7 +48,7 @@ class Blog(common):
         unique=True,
     )
     short_desc = models.CharField(max_length=150, blank=True, null=True)
-    content = RichTextField()
+    content = RichTextUploadingField(blank=True, null=True)
     image = models.ImageField(
         upload_to="blog_images",
         height_field=None,
@@ -55,6 +69,10 @@ class Blog(common):
     )
     tags = models.ManyToManyField(
         Tag,
+        blank=True,
         related_name="blogs",
         verbose_name="tags",
     )
+
+    def __str__(self):
+        return self.name

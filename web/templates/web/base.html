@@ -6,7 +6,7 @@
     <div class="drawer-content">
         <!-- Page content here -->
         <div class="min-h-screen">
-            <div class="navbar bg-base-100 shadow-xl border-b border-base-300">
+            <nav class="navbar bg-base-100 shadow-xl border-b border-base-300">
                 <div class="flex-1">
                     <label for="my-drawer" class="btn">
                         <span class="icon-[iconamoon--menu-burger-horizontal-bold] h-8 w-8 cursor-pointer">
@@ -30,12 +30,10 @@
                     <div class="dropdown dropdown-end">
                         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                             <div class="w-10 rounded-full">
-                                <img alt="Tailwind CSS Navbar component"
-                                    src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                             </div>
                         </div>
-                        <ul tabindex="0"
-                            class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                        <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                             <li>
                                 <a class="justify-between">
                                     Profile
@@ -47,7 +45,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </nav>
             <div class="p-4 md:p-8">
                 {% block content %}{% endblock content %}
             </div>

@@ -6,10 +6,11 @@
 <div class="flex flex-col gap-8 xl:flex-row justify-between">
     {# rirght side #}
     <div class="grow">
-        <div class="w-full flex justify-end">
-            <form class="max-w-xs [&_input]:input [&_input]:input-bordered [&_input]:border-base-300"
-                action="{% url 'blog:list-by-search' %}">
-                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <div class="w-full flex justify-end py-1 space-x-2  ">
+            <a href="{% url 'blog:create'%}">
+                <button class="btn btn-primary">+ Add Blog</button>
+            </a>
+            <form class="max-w-xs [&_input]:input [&_input]:input-bordered [&_input]:border-base-300" action="{% url 'blog:list-by-search' %}">
                 {% for field in search_form %}
                 <div class="flex items-center gap-2">
                     <span class="icon-[iconamoon--search] h-8 w-8"></span> {{field}}
@@ -25,22 +26,29 @@
             <div class="card w-full bg-base-100 shadow-xl">
                 <a href="{% url 'blog:detail' slug=blog.slug %}" class="block">
                     <figure>
+                        {% if blog.image %}
                         <img src="{{blog.image.url}}" alt="Shoes" />
+                        {% endif %}
                     </figure>
                     <div class="card-body p-4">
                         <h2 class="card-title">
                             {{blog.title}}
+                            {% if blog.category %}
                             <a href="{% url 'blog:list-by-category' slug=blog.category.slug%}">
                                 <div class="badge badge-secondary">{{blog.category.name}}</div>
                             </a>
+                            {% endif %}
                         </h2>
                         <p>{{blog.short_desc}}</p>
                         <div class="card-actions justify-end">
+                            {% if blog.tags %}
+
                             {% for tag in blog.tags.all %}
                             <a href="{% url 'blog:list-by-tag' slug=tag.slug%}">
                                 <span class="badge badge-outline">{{tag.name}}</span>
                             </a>
                             {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </a>
@@ -54,25 +62,21 @@
                 {% if page_obj.has_previous %}
                 <a href="?{%get_query_string_excluding 'page'%}&page=1"><button class="join-item btn">&laquo;
                         first</button></a>
-                <a href="?{%get_query_string_excluding 'page'%}&page={{ page_obj.previous_page_number }}"><button
-                        class="join-item btn">&laquo;
+                <a href="?{%get_query_string_excluding 'page'%}&page={{ page_obj.previous_page_number }}"><button class="join-item btn">&laquo;
                         Previous</button></a>
                 {% endif %}
                 {% for p in page_obj.paginator.page_range %}
                 <div>
                     {% current_page_is p as isCurrentPage %}
-                    <a href="?{%get_query_string_excluding 'page'%}&page={{p}}"><button
-                            class="join-item btn {{isCurrentPage|yesno:'btn-active,,'}}">{{p}}</button></a>
+                    <a href="?{%get_query_string_excluding 'page'%}&page={{p}}"><button class="join-item btn {{isCurrentPage|yesno:'btn-active,,'}}">{{p}}</button></a>
                 </div>
                 {% endfor %}
 
 
                 {% if page_obj.has_next %}
-                <a href="?{%get_query_string_excluding 'page'%}&page={{page_obj.next_page_number}}"><button
-                        class="join-item btn">Next
+                <a href="?{%get_query_string_excluding 'page'%}&page={{page_obj.next_page_number}}"><button class="join-item btn">Next
                         &raquo;</button></a>
-                <a href="?{%get_query_string_excluding 'page'%}&page={{ page_obj.paginator.num_pages }}"><button
-                        class="join-item btn">Last
+                <a href="?{%get_query_string_excluding 'page'%}&page={{ page_obj.paginator.num_pages }}"><button class="join-item btn">Last
                         &raquo;</button></a>
                 {% endif %}
             </div>
@@ -80,12 +84,11 @@
     </div>
 
     {# left side #}
-    <div class="w-full xl:max-w-72 shadow-lg border p-4 rounded-2xl space-y-2">
+    <div class="w-full xl:max-w-72 h-min shadow-lg border p-4 rounded-2xl space-y-2">
         <h2 class="text-xl font-bold">Categories</h2>
         <ul>
             {% for c in categories %}
-            <li><a href="{% url 'blog:list-by-category' slug=c.slug %}"
-                    class="btn-link text-lg no-underline">{{c.name}}</a>
+            <li><a href="{% url 'blog:list-by-category' slug=c.slug %}" class="btn-link text-lg no-underline">{{c.name}}</a>
             </li>
             {% endfor %}
         </ul>
