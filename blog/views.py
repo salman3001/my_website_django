@@ -1,8 +1,13 @@
 from django.urls import reverse_lazy
 from .models import Blog, Category, Tag
-from django.views.generic import ListView, DetailView, CreateView
-from .forms import BlogSearchForm, CreateBlogForm
-from django import forms
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
+from .forms import BlogSearchForm
 
 # Create your views here.
 
@@ -77,12 +82,59 @@ class BlogDetail(DetailView):
 
 class BlogCreate(CreateView):
     model = Blog
-    template_name = "blog/blog_create.html"
+    template_name = "blog/blog_update.html"
     base_template = "web/base.html"
-    form_class = CreateBlogForm
     success_url = reverse_lazy("blog:list")
+    fields = [
+        "title",
+        "slug",
+        "short_desc",
+        "image",
+        "published",
+        "featured",
+        "category",
+        "tags",
+        "content",
+        "meta_title",
+        "meta_keywords",
+        "meta_desc",
+        "meta_struct_data",
+    ]
 
     def get_context_data(self, **kwargs) -> dict[str, any]:
         context = super().get_context_data(**kwargs)
         context["base_template"] = self.base_template
         return context
+
+
+class BlogEdit(UpdateView):
+    model = Blog
+    template_name = "blog/blog_update.html"
+    base_template = "web/base.html"
+    success_url = reverse_lazy("blog:list")
+    fields = [
+        "title",
+        "slug",
+        "short_desc",
+        "image",
+        "published",
+        "featured",
+        "category",
+        "tags",
+        "content",
+        "meta_title",
+        "meta_keywords",
+        "meta_desc",
+        "meta_struct_data",
+    ]
+
+    def get_context_data(self, **kwargs) -> dict[str, any]:
+        context = super().get_context_data(**kwargs)
+        context["base_template"] = self.base_template
+        return context
+
+
+class BlogDelete(DeleteView):
+    model = Blog
+    template_name = "blog/blog_delete.html"
+    success_url = reverse_lazy("blog:list")

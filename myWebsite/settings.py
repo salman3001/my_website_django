@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from django.forms.renderers import TemplatesSetting
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,12 +38,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # our apps
     "web",
     "blog",
     "portfolio",
     "core",
+    # thirs party apps
     "ckeditor",
     "ckeditor_uploader",
+    "django.forms",
 ]
 
 MIDDLEWARE = [
@@ -139,3 +143,11 @@ CKEDITOR_CONFIGS = {
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# custom form template
+class CustomFormRenderer(TemplatesSetting):
+    form_template_name = "core/form.html"
+
+
+FORM_RENDERER = "myWebsite.settings.CustomFormRenderer"

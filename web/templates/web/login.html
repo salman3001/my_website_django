@@ -1,0 +1,20 @@
+{% extends master_template %}
+{% load core_tags%}
+
+{% block master %}
+<div class="flex justify-center items-center w-full mt-20">
+    <form action="{% url 'web:login'%}?{%get_query_string %}" method="post"
+        class="flex flex-col justify-center gap-4 items-center border shadow-xl rounded-xl p-4 w-full max-w-sm">
+        <h1 class="text-xl font-bold">Welcome Back!</h1>
+        <p>Please enter your crentials to login</p>
+        {%csrf_token%}
+        {{form}}
+        <ul class="text-end self-end">
+
+            <li>Dont have an account ? <a href="" class="text-primary">Signup</a></li>
+            <li><a href="{% url 'web:password-reset'%}" class="text-primary">Forgot password</a></li>
+        </ul>
+        <button type="submit" class="btn btn-primary w-full max-w-xs">Login</button>
+    </form>
+</div>
+{% endblock master %}

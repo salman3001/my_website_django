@@ -1,0 +1,14 @@
+<input type="checkbox" id="delete-blog-modal" checked class="modal-toggle" />
+<div class="modal" role="dialog">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">Logout!</h3>
+        <p class="py-4">Are you sure you want to logout ?</p>
+        <div class="flex justify-end gap-2">
+            <label for="delete-blog-modal" class="btn btn-primary btn-outline">Cancel</label>
+            <form method="post" action="{% url 'web:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Logout</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@iconify/json": "^2.2.176",
-    "@iconify/tailwind": "^0.1.4"
+    "@iconify/tailwind": "^0.1.4",
+    "htmx.org": "^1.9.10"
   }
 }
