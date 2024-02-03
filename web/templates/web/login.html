@@ -3,7 +3,7 @@
 
 {% block master %}
 <div class="flex justify-center items-center w-full mt-20">
-    <form action="{% url 'web:login'%}?{%get_query_string %}" method="post"
+    <form action="{% url 'web:login'%}?{% get_query_string %}" method="post"
         class="flex flex-col justify-center gap-4 items-center border shadow-xl rounded-xl p-4 w-full max-w-sm">
         <h1 class="text-xl font-bold">Welcome Back!</h1>
         <p>Please enter your crentials to login</p>

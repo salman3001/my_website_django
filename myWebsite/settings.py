@@ -151,3 +151,6 @@ class CustomFormRenderer(TemplatesSetting):
 
 
 FORM_RENDERER = "myWebsite.settings.CustomFormRenderer"
+
+# emails
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

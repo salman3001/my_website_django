@@ -49,12 +49,13 @@ class PasswordChangeDone(TemplateView):
 
 class PasswordReset(PasswordResetView):
     template_name = "web/password_reset_form.html"
-    success_url = reverse_lazy("web:password_reset_done")
+    success_url = reverse_lazy("web:password-reset-done")
+    email_template_name = "web/password_reset_email.html"
+
+
+class PasswordResetDone(PasswordResetDoneView):
+    template_name = "web/password_reset_done.html"
 
 
 class PasswordResetConfirm(PasswordResetConfirmView):
     template_name = "web/password_reset_confirm.html"
-
-
-class PasswordResetDone(TemplateView):
-    template_name = "web/password_reset_done.html"
