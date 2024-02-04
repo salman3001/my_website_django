@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 
@@ -59,6 +60,10 @@ class Blog(common):
     )
     published = models.BooleanField(default=False, blank=True)
     featured = models.BooleanField(default=False, blank=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+    updated_at = models.DateTimeField(auto_now=False)
     category = models.ForeignKey(
         Category,
         verbose_name="Category",
@@ -75,4 +80,4 @@ class Blog(common):
     )
 
     def __str__(self):
-        return self.name
+        return self.title

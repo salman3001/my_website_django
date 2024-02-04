@@ -2,7 +2,7 @@
 {{form.non_field_errors}}
 {% for field in form %}
 {% if field.widget_type == 'text' or field.widget_type == 'password' or field.widget_type == 'email' %}
-<div class="form-control w-full max-w-xs">
+<div class="form-control w-full sm:max-w-xs">
     <label for="{{field.id_for_label}}" class="pb-1">{{field.label}}</label>
     {{ field}}
     <div class="flex flex-col">
@@ -30,8 +30,8 @@
     </div>
 </div>
 {%elif field.widget_type == 'clearablefile'%}
-<div class="form-control">
-    <div class="flex flex-col gap-2">
+<div class="form-control w-full">
+    <div class="flex flex-col gap-2 w-full sm:max-w-xs">
         <label for="{{field.id_for_label}}">{{field.label}}</label>
         {{ field }}
     </div>
@@ -74,8 +74,8 @@
         {{ field.errors }}
     </div>
 </div>
-{%elif field.widget_type == 'select'%}
-<div class="form-control w-full max-w-xs">
+{%elif field.widget_type == 'select' or field.widget_type == 'selectmultiple'%}
+<div class="form-control w-full sm:max-w-xs">
     <div class="flex flex-col gap-2">
         <label for="{{field.id_for_label}}">{{field.label}}</label>
         {{ field }}

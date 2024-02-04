@@ -2,28 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-
 input:not([type="checkbox"]) {
-  @apply input input-bordered ;
+  @apply input input-bordered;
 }
 
 input[aria-invalid="true"] {
   @apply input-error;
 }
 
-
 input[type="checkbox"] {
   @apply checkbox checkbox-xs;
 }
 
 input[type="file"] {
-  @apply file-input file-input-sm file-input-bordered;
+  @apply file-input file-input-bordered;
 }
 
 select {
-  @apply select select-bordered ;
+  @apply select select-bordered;
 }
 
-.errorlist{
-  @apply text-red-500 ;
+.errorlist {
+  @apply text-red-500;
+}
+
+/* messages */
+
+.message-info {
+  @apply alert-info;
+}
+
+.message-success {
+  @apply alert-success;
+}
+
+.message-warning {
+  @apply alert-warning;
+}
+
+.message-error {
+  @apply alert-error;
 }

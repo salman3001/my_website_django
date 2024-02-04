@@ -1,3 +1,4 @@
+from django import forms
 from django.urls import reverse_lazy
 from .models import Blog, Category, Tag
 from django.views.generic import (
@@ -8,21 +9,18 @@ from django.views.generic import (
     DeleteView,
 )
 from .forms import BlogSearchForm
+from django.contrib.messages.views import SuccessMessageMixin
 
 # Create your views here.
 
 
 class BlogList(ListView):
-    base_template = "web/base.html"
     model = Blog
-    context_object_name = "blogs"
-    template_name = "blog/bloglist.html"
     paginate_by = 20
     search_form = BlogSearchForm()
 
     def get_context_data(self, **kwargs) -> dict[str, any]:
         context = super().get_context_data(**kwargs)
-        context["base_template"] = self.base_template
         context["categories"] = Category.objects.all()
         context["search_form"] = self.search_form
         return context
@@ -80,11 +78,12 @@ class BlogDetail(DetailView):
         return context
 
 
-class BlogCreate(CreateView):
+class BlogCreate(SuccessMessageMixin, CreateView):
     model = Blog
     template_name = "blog/blog_update.html"
     base_template = "web/base.html"
     success_url = reverse_lazy("blog:list")
+    success_message = "Blog Created Successfully"
     fields = [
         "title",
         "slug",
@@ -107,11 +106,12 @@ class BlogCreate(CreateView):
         return context
 
 
-class BlogEdit(UpdateView):
+class BlogEdit(SuccessMessageMixin, UpdateView):
     model = Blog
     template_name = "blog/blog_update.html"
     base_template = "web/base.html"
     success_url = reverse_lazy("blog:list")
+    success_message = "Blog Updated Successfully"
     fields = [
         "title",
         "slug",
@@ -127,6 +127,10 @@ class BlogEdit(UpdateView):
         "meta_desc",
         "meta_struct_data",
     ]
+
+    widgets = {
+        "tags": forms.CheckboxSelectMultiple,  # Use the appropriate widget for ManyToManyField
+    }
 
     def get_context_data(self, **kwargs) -> dict[str, any]:
         context = super().get_context_data(**kwargs)

@@ -1,5 +1,6 @@
 {% load core_tags %}
 
+
 <h1 class="text-4xl font-bold">{{title}} {{title_prefix}}</h1>
 <br />
 
@@ -7,11 +8,12 @@
     {# rirght side #}
     <div class="grow">
         <div class="w-full flex justify-end py-1 space-x-2  ">
+            {% if perms.add.delete_blog %}
             <a href="{% url 'blog:create'%}">
                 <button class="btn btn-primary">+ Add Blog</button>
             </a>
-            <form class="max-w-xs [&_input]:input [&_input]:input-bordered [&_input]:border-base-300"
-                action="{% url 'blog:list-by-search' %}">
+            {%endif%}
+            <form class="max-w-xs [&_input]:input [&_input]:input-bordered [&_input]:border-base-300" action="{% url 'blog:list-by-search' %}">
                 {% for field in search_form %}
                 <div class="flex items-center gap-2">
                     <span class="icon-[iconamoon--search] h-8 w-8"></span> {{field}}
@@ -23,17 +25,20 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3  gap-8 w-full">
 
             {# card #}
-            {% for blog in blogs %}
-            <div class="card w-full bg-base-100 shadow-xl">
-                <div class="flex justify-end gap-2 p-2">
-                    <a href="{% url 'blog:edit' pk=blog.id%}"
-                        class="btn btn-square btn-sm btn-outline opacity-50 shadow-md">
+            {% for blog in object_list %}
+            <div class="card rounded-md w-full bg-base-100 shadow-xl">
+                <div class="flex justify-end gap-2 p-2 absolute right-0">
+                    {% if perms.blog.change_blog %}
+                    <a href="{% url 'blog:edit' pk=blog.id%}" class="btn btn-square btn-primary btn-sm opacity-70  shadow-md">
                         <span class="icon-[material-symbols--edit]"></span>
                     </a>
-                    <button hx-get="{% url 'blog:delete' pk=blog.pk %}" hx-target="#modal"
-                        class="btn btn-square btn-sm btn-outline opacity-50 shadow-md">
+                    {% endif %}
+                    {% if perms.blog.delete_blog %}
+                    <button hx-get="{% url 'blog:delete' pk=blog.pk %}" hx-target="#modal" class="btn btn-square btn-primary btn-sm opacity-70  shadow-md">
                         <span class="icon-[material-symbols--delete]"></span>
                     </button>
+                    {% endif %}
+
                     <span className="loading loading-spinner loading-lg text-primary"></span>
                 </div>
                 <a href="{% url 'blog:detail' slug=blog.slug %}" class="block">
@@ -53,8 +58,8 @@
                         </h2>
                         <p>{{blog.short_desc}}</p>
                         <div class="card-actions justify-end">
-                            {% if blog.tags %}
 
+                            {% if blog.tags %}
                             {% for tag in blog.tags.all %}
                             <a href="{% url 'blog:list-by-tag' slug=tag.slug%}">
                                 <span class="badge badge-outline">{{tag.name}}</span>
@@ -74,25 +79,21 @@
                 {% if page_obj.has_previous %}
                 <a href="?{%get_query_string_excluding 'page'%}&page=1"><button class="join-item btn">&laquo;
                         first</button></a>
-                <a href="?{%get_query_string_excluding 'page'%}&page={{ page_obj.previous_page_number }}"><button
-                        class="join-item btn">&laquo;
+                <a href="?{%get_query_string_excluding 'page'%}&page={{ page_obj.previous_page_number }}"><button class="join-item btn">&laquo;
                         Previous</button></a>
                 {% endif %}
                 {% for p in page_obj.paginator.page_range %}
                 <div>
                     {% current_page_is p as isCurrentPage %}
-                    <a href="?{%get_query_string_excluding 'page'%}&page={{p}}"><button
-                            class="join-item btn {{isCurrentPage|yesno:'btn-active,,'}}">{{p}}</button></a>
+                    <a href="?{%get_query_string_excluding 'page'%}&page={{p}}"><button class="join-item btn {{isCurrentPage|yesno:'btn-active,,'}}">{{p}}</button></a>
                 </div>
                 {% endfor %}
 
 
                 {% if page_obj.has_next %}
-                <a href="?{%get_query_string_excluding 'page'%}&page={{page_obj.next_page_number}}"><button
-                        class="join-item btn">Next
+                <a href="?{%get_query_string_excluding 'page'%}&page={{page_obj.next_page_number}}"><button class="join-item btn">Next
                         &raquo;</button></a>
-                <a href="?{%get_query_string_excluding 'page'%}&page={{ page_obj.paginator.num_pages }}"><button
-                        class="join-item btn">Last
+                <a href="?{%get_query_string_excluding 'page'%}&page={{ page_obj.paginator.num_pages }}"><button class="join-item btn">Last
                         &raquo;</button></a>
                 {% endif %}
             </div>
@@ -104,8 +105,7 @@
         <h2 class="text-xl font-bold">Categories</h2>
         <ul>
             {% for c in categories %}
-            <li><a href="{% url 'blog:list-by-category' slug=c.slug %}"
-                    class="btn-link text-lg no-underline">{{c.name}}</a>
+            <li><a href="{% url 'blog:list-by-category' slug=c.slug %}" class="btn-link text-lg no-underline">{{c.name}}</a>
             </li>
             {% endfor %}
         </ul>

@@ -8,10 +8,10 @@ from django.contrib.auth.views import (
     PasswordResetView,
     PasswordResetDoneView,
     PasswordResetConfirmView,
+    PasswordResetCompleteView,
 )
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.contrib.auth.forms import PasswordResetForm
 
 # Create your views here.
 
@@ -59,3 +59,8 @@ class PasswordResetDone(PasswordResetDoneView):
 
 class PasswordResetConfirm(PasswordResetConfirmView):
     template_name = "web/password_reset_confirm.html"
+    success_url = reverse_lazy("web:password-reset-complete")
+
+
+class PasswordResetComplete(PasswordResetCompleteView):
+    template_name = "web/password_reset_complete.html"
