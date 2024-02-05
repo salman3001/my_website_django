@@ -32,18 +32,19 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    # our apps
+    "web",
+    "blog",
+    "portfolio",
+    "core",
+    # django apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # our apps
-    "web",
-    "blog",
-    "portfolio",
-    "core",
-    # thirs party apps
+    # third party apps
     "ckeditor",
     "ckeditor_uploader",
     "django.forms",
@@ -154,3 +155,7 @@ FORM_RENDERER = "myWebsite.settings.CustomFormRenderer"
 
 # emails
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# auth
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"

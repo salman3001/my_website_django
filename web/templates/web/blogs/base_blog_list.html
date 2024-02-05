@@ -8,13 +8,8 @@
     {# rirght side #}
     <div class="grow">
         <div class="w-full flex justify-end py-1 space-x-2  ">
-            {% if perms.add.delete_blog %}
-            <a href="{% url 'blog:create'%}">
-                <button class="btn btn-primary">+ Add Blog</button>
-            </a>
-            {%endif%}
             <form class="max-w-xs [&_input]:input [&_input]:input-bordered [&_input]:border-base-300"
-                action="{% url 'blog:list-by-search' %}">
+                action="{% url 'web:blogs_by_search' %}">
                 {% for field in search_form %}
                 <div class="flex items-center gap-2">
                     <span class="icon-[iconamoon--search] h-8 w-8"></span> {{field}}
@@ -28,23 +23,7 @@
             {# card #}
             {% for blog in object_list %}
             <div class="card rounded-md w-full bg-base-100 shadow-xl">
-                <div class="flex justify-end gap-2 p-2 absolute right-0">
-                    {% if perms.blog.change_blog %}
-                    <a href="{% url 'blog:edit' pk=blog.id%}"
-                        class="btn btn-square btn-primary btn-sm opacity-70  shadow-md">
-                        <span class="icon-[material-symbols--edit]"></span>
-                    </a>
-                    {% endif %}
-                    {% if perms.blog.delete_blog %}
-                    <button hx-get="{% url 'blog:delete' pk=blog.pk %}" hx-target="#modal"
-                        class="btn btn-square btn-primary btn-sm opacity-70  shadow-md">
-                        <span class="icon-[material-symbols--delete]"></span>
-                    </button>
-                    {% endif %}
-
-                    <span className="loading loading-spinner loading-lg text-primary"></span>
-                </div>
-                <a href="{% url 'blog:detail' slug=blog.slug %}" class="block">
+                <a href="{% url 'web:blog_detail' slug=blog.slug %}" class="block">
                     <figure>
                         {% if blog.image %}
                         <img src="{{blog.image.url}}" alt="Shoes" />
@@ -54,7 +33,7 @@
                         <h2 class="card-title">
                             {{blog.title}}
                             {% if blog.category %}
-                            <a href="{% url 'blog:list-by-category' slug=blog.category.slug%}">
+                            <a href="{% url 'web:blogs_by_category' slug=blog.category.slug%}">
                                 <div class="badge badge-secondary">{{blog.category.name}}</div>
                             </a>
                             {% endif %}
@@ -64,7 +43,7 @@
 
                             {% if blog.tags %}
                             {% for tag in blog.tags.all %}
-                            <a href="{% url 'blog:list-by-tag' slug=tag.slug%}">
+                            <a href="{% url 'web:blogs_by_tag' slug=tag.slug%}">
                                 <span class="badge badge-outline">{{tag.name}}</span>
                             </a>
                             {% endfor %}
@@ -112,7 +91,7 @@
         <h2 class="text-xl font-bold">Categories</h2>
         <ul>
             {% for c in categories %}
-            <li><a href="{% url 'blog:list-by-category' slug=c.slug %}"
+            <li><a href="{% url 'web:blogs_by_category' slug=c.slug %}"
                     class="btn-link text-lg no-underline">{{c.name}}</a>
             </li>
             {% endfor %}

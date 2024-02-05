@@ -66,21 +66,12 @@ class BlogListBySearch(BlogList):
 
 
 class BlogDetail(DetailView):
-    base_template = "web/base.html"
     model = Blog
-    context_object_name = "blog"
-    template_name = "blog/blog_detail.html"
     slug_field = "slug"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["base_template"] = self.base_template
-        return context
 
 
 class BlogCreate(SuccessMessageMixin, CreateView):
     model = Blog
-    template_name = "blog/blog_update.html"
     base_template = "web/base.html"
     success_url = reverse_lazy("blog:list")
     success_message = "Blog Created Successfully"
@@ -100,16 +91,9 @@ class BlogCreate(SuccessMessageMixin, CreateView):
         "meta_struct_data",
     ]
 
-    def get_context_data(self, **kwargs) -> dict[str, any]:
-        context = super().get_context_data(**kwargs)
-        context["base_template"] = self.base_template
-        return context
-
 
 class BlogEdit(SuccessMessageMixin, UpdateView):
     model = Blog
-    template_name = "blog/blog_update.html"
-    base_template = "web/base.html"
     success_url = reverse_lazy("blog:list")
     success_message = "Blog Updated Successfully"
     fields = [
@@ -132,13 +116,7 @@ class BlogEdit(SuccessMessageMixin, UpdateView):
         "tags": forms.CheckboxSelectMultiple,  # Use the appropriate widget for ManyToManyField
     }
 
-    def get_context_data(self, **kwargs) -> dict[str, any]:
-        context = super().get_context_data(**kwargs)
-        context["base_template"] = self.base_template
-        return context
-
 
 class BlogDelete(DeleteView):
     model = Blog
-    template_name = "blog/blog_delete.html"
     success_url = reverse_lazy("blog:list")

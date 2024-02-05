@@ -1,0 +1,18 @@
+{% extends master_template %}
+
+{% block master %}
+<div class="flex justify-center items-center w-full mt-10">
+    <form action="{% url 'web:signup'%}" method="post"
+        class="flex flex-col justify-center gap-4 items-center border shadow-xl rounded-xl p-4 w-full max-w-sm">
+        <h1 class="text-xl font-bold">Sign up !</h1>
+        <p>Please enter your detail to get resgistered</p>
+        {%csrf_token%}
+        {{form}}
+        <ul class="text-end self-end">
+
+            <li>Already have an account ? <a href="{% url 'web:login'%}" class="text-primary">Login</a></li>
+        </ul>
+        <button type="submit" class="btn btn-primary w-full max-w-xs">Signup</button>
+    </form>
+</div>
+{% endblock master %}
