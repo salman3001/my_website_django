@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "ckeditor",
     "ckeditor_uploader",
     "django.forms",
+    "adminsortable2",
 ]
 
 MIDDLEWARE = [
@@ -74,6 +75,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "myWebsite.context_processors.master_template",
+                "django.template.context_processors.static",
             ],
         },
     },

@@ -5,12 +5,19 @@
 
 <h1 class="text-2xl font-bold">Create Blog</h1>
 <br>
-<form class="flex flex-wrap gap-6 max-w-7xl" action="{% url 'blog:create' %}" method="post"
+<form class="flex flex-wrap gap-6 max-w-7xl"
+    action="{% if object %}{% url 'blog:edit' pk=object.id %}{% else %}{% url 'blog:create' %}{% endif %}" method="post"
     enctype="multipart/form-data">
     {% csrf_token %}
     {{form}}
     <div class="flex w-full justify-end">
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary">
+            {% if object %}
+            Update
+            {% else %}
+            Create
+            {% endif %}
+        </button>
     </div>
 </form>
 

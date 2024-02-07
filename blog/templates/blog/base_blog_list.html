@@ -13,7 +13,8 @@
                 <button class="btn btn-primary">+ Add Blog</button>
             </a>
             {%endif%}
-            <form class="max-w-xs [&_input]:input [&_input]:input-bordered [&_input]:border-base-300" action="{% url 'blog:list-by-search' %}">
+            <form class="max-w-xs [&_input]:input [&_input]:input-bordered [&_input]:border-base-300"
+                action="{% url 'blog:list-by-search' %}">
                 {% for field in search_form %}
                 <div class="flex items-center gap-2">
                     <span class="icon-[iconamoon--search] h-8 w-8"></span> {{field}}
@@ -29,12 +30,14 @@
             <div class="card rounded-md w-full bg-base-100 shadow-xl">
                 <div class="flex justify-end gap-2 p-2 absolute right-0">
                     {% if perms.blog.change_blog %}
-                    <a href="{% url 'blog:edit' pk=blog.id%}" class="btn btn-square btn-primary btn-sm opacity-70  shadow-md">
+                    <a href="{% url 'blog:edit' pk=blog.id%}"
+                        class="btn btn-square btn-primary btn-sm opacity-70  shadow-md">
                         <span class="icon-[material-symbols--edit]"></span>
                     </a>
                     {% endif %}
                     {% if perms.blog.delete_blog %}
-                    <button hx-get="{% url 'blog:delete' pk=blog.pk %}" hx-target="#modal" class="btn btn-square btn-primary btn-sm opacity-70  shadow-md">
+                    <button hx-get="{% url 'blog:delete' pk=blog.pk %}" hx-target="#modal"
+                        class="btn btn-square btn-primary btn-sm opacity-70  shadow-md">
                         <span class="icon-[material-symbols--delete]"></span>
                     </button>
                     {% endif %}
@@ -79,21 +82,25 @@
                 {% if page_obj.has_previous %}
                 <a href="?{%get_query_string_excluding 'page'%}&page=1"><button class="join-item btn">&laquo;
                         first</button></a>
-                <a href="?{%get_query_string_excluding 'page'%}&page={{ page_obj.previous_page_number }}"><button class="join-item btn">&laquo;
+                <a href="?{%get_query_string_excluding 'page'%}&page={{ page_obj.previous_page_number }}"><button
+                        class="join-item btn">&laquo;
                         Previous</button></a>
                 {% endif %}
                 {% for p in page_obj.paginator.page_range %}
                 <div>
                     {% current_page_is p as isCurrentPage %}
-                    <a href="?{%get_query_string_excluding 'page'%}&page={{p}}"><button class="join-item btn {{isCurrentPage|yesno:'btn-active,,'}}">{{p}}</button></a>
+                    <a href="?{%get_query_string_excluding 'page'%}&page={{p}}"><button
+                            class="join-item btn {{isCurrentPage|yesno:'btn-active,,'}}">{{p}}</button></a>
                 </div>
                 {% endfor %}
 
 
                 {% if page_obj.has_next %}
-                <a href="?{%get_query_string_excluding 'page'%}&page={{page_obj.next_page_number}}"><button class="join-item btn">Next
+                <a href="?{%get_query_string_excluding 'page'%}&page={{page_obj.next_page_number}}"><button
+                        class="join-item btn">Next
                         &raquo;</button></a>
-                <a href="?{%get_query_string_excluding 'page'%}&page={{ page_obj.paginator.num_pages }}"><button class="join-item btn">Last
+                <a href="?{%get_query_string_excluding 'page'%}&page={{ page_obj.paginator.num_pages }}"><button
+                        class="join-item btn">Last
                         &raquo;</button></a>
                 {% endif %}
             </div>
@@ -105,7 +112,8 @@
         <h2 class="text-xl font-bold">Categories</h2>
         <ul>
             {% for c in categories %}
-            <li><a href="{% url 'blog:list-by-category' slug=c.slug %}" class="btn-link text-lg no-underline">{{c.name}}</a>
+            <li><a href="{% url 'blog:list-by-category' slug=c.slug %}"
+                    class="btn-link text-lg no-underline">{{c.name}}</a>
             </li>
             {% endfor %}
         </ul>

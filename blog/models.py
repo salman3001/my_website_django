@@ -60,10 +60,11 @@ class Blog(common):
     )
     published = models.BooleanField(default=False, blank=True)
     featured = models.BooleanField(default=False, blank=True)
-    created_at = models.DateTimeField(
-        auto_now_add=True,
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True)
+    order = models.PositiveIntegerField(
+        default=0, blank=False, null=False, db_index=True
     )
-    updated_at = models.DateTimeField(auto_now=False)
     category = models.ForeignKey(
         Category,
         verbose_name="Category",
@@ -81,3 +82,16 @@ class Blog(common):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            latest_order = Blog.objects.order_by("-order").first()
+            if latest_order:
+                self.order = latest_order.order + 1
+            else:
+                self.order = 1
+
+        super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ["order"]
