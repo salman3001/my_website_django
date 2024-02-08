@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     "blog",
     "portfolio",
     "core",
+    # third party apps
+    "ckeditor",
+    "ckeditor_uploader",
+    "adminsortable2",
     # django apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -44,11 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # third party apps
-    "ckeditor",
-    "ckeditor_uploader",
     "django.forms",
-    "adminsortable2",
 ]
 
 MIDDLEWARE = [
