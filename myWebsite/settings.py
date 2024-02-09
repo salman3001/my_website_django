@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "ckeditor",
     "ckeditor_uploader",
     "adminsortable2",
+    "phonenumber_field",
     # django apps
     "django.contrib.admin",
     "django.contrib.auth",

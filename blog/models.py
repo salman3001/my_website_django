@@ -25,10 +25,14 @@ class common(models.Model):
 
 class Category(common):
     name = models.CharField(max_length=30, unique=True)
+    order = models.PositiveIntegerField(default=0, db_index=True)
     slug = models.SlugField(
         max_length=150,
         unique=True,
     )
+
+    class Meta:
+        ordering = ["order"]
 
     def __str__(self):
         return self.name
@@ -62,9 +66,7 @@ class Blog(common):
     featured = models.BooleanField(default=False, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
-    order = models.PositiveIntegerField(
-        default=0, blank=False, null=False, db_index=True
-    )
+    order = models.PositiveIntegerField(default=0, db_index=True)
     category = models.ForeignKey(
         Category,
         verbose_name="Category",

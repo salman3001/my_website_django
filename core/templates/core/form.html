@@ -4,7 +4,7 @@
 {% endfor %}
 {{form.non_field_errors}}
 {% for field in form %}
-{% if field.widget_type == 'text' or field.widget_type == 'password' or field.widget_type == 'email' %}
+{% if field.widget_type == 'text' or field.widget_type == 'password' or field.widget_type == 'email' or field.widget_type == 'number' or field.widget_type == 'regionalphonenumber'%}
 <div class="form-control w-full sm:max-w-xs">
     <label for="{{field.id_for_label}}" class="pb-1">{{field.label}}</label>
     {{ field}}

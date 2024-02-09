@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
@@ -99,3 +100,10 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ContactMessage(models.Model):
+    full_name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=254)
+    phone = PhoneNumberField(blank=True, null=True)
+    message = models.CharField(max_length=254)
