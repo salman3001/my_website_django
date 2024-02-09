@@ -2,7 +2,8 @@
 
 {% block content %}
 <div class="flex flex-col md:flex-row w-full max-h-[90vh] gap-8 overflow-y-scroll">
-    <div class="w-full md:w-1/4  flex flex-col items-center py-8 space-y-4 px-2 border rounded-lg shadow-lg md:sticky top-0">
+    <div
+        class="w-full md:w-1/4  flex flex-col items-center py-8 space-y-4 px-2 border rounded-lg shadow-lg md:sticky top-0">
         <div class="avatar">
             <div class="w-36 rounded-full">
                 <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
@@ -25,7 +26,9 @@
             <hr>
             <br>
             <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod necessitatibus nobis sint accusamus ipsum, magni perferendis rerum inventore rem quis itaque impedit beatae, reiciendis cum voluptates voluptatibus corrupti, ad laborum!
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod necessitatibus nobis sint accusamus
+                ipsum, magni perferendis rerum inventore rem quis itaque impedit beatae, reiciendis cum voluptates
+                voluptatibus corrupti, ad laborum!
             </p>
         </div>
         <br>
@@ -39,20 +42,24 @@
                 {% for x in '012'|make_list %}
                 <div class="hero min-96 bg-base-200">
                     <div class="hero-content flex-col lg:flex-row">
-                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" class="w-full sm:max-w-lg rounded-lg shadow-2xl" />
+                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            class="w-full sm:max-w-sm rounded-lg shadow-2xl" />
                         <div>
                             <h1 class="text-5xl font-bold">Box Office News!</h1>
-                            <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                            <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+                                exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                             <button class="btn btn-primary">Explore</button>
                         </div>
                     </div>
                 </div>
                 <div class="hero min-96 bg-base-200">
                     <div class="hero-content flex-col lg:flex-row-reverse">
-                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" class="w-full sm:max-w-lg  rounded-lg shadow-2xl" />
+                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            class="w-full sm:max-w-lg  rounded-lg shadow-2xl" />
                         <div>
                             <h1 class="text-5xl font-bold">Box Office News!</h1>
-                            <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                            <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+                                exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                             <button class="btn btn-primary">View All</button>
                         </div>
                     </div>
@@ -187,11 +194,7 @@
             <br>
             <hr>
             <br>
-            <form method="post" action="{% url 'portfolio:home' %}" class="flex flex-col items-end max-w-72 gap-4">
-                {% csrf_token%}
-                {{form}}
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            {% include "portfolio/ContactForm.html" %}
         </div>
     </div>
 </div>

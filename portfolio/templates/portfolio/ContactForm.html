@@ -1,0 +1,5 @@
+<form method="post" action="{% url 'portfolio:home' %}" class="flex flex-col items-end max-w-72 gap-4" hx-target="this">
+    {% csrf_token%}
+    {{form}}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

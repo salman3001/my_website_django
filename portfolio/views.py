@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from .forms import ContactMessageForm
 from .models import ContactMessage
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django_htmx.http import HttpResponseLocation, retarget
 from django.urls import reverse
 
 # Create your views here.
@@ -20,9 +20,12 @@ def home(request):
                 "Thank you! Your request has been recieved. we will contact you shortly.",
             )
 
-            return HttpResponseRedirect(reverse("portfolio:home"))
+            return HttpResponseLocation(reverse("portfolio:home"))
         else:
-            return render(request, "portfolio/home.html", {"form": form})
+            return retarget(
+                render(request, "portfolio/ContactForm.html", {"form": form}),
+                "closest form",
+            )
 
     else:
         form = ContactMessageForm()

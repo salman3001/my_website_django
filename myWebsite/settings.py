@@ -33,15 +33,16 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     # our apps
-    "web",
-    "blog",
-    "portfolio",
-    "core",
+    "web.apps.WebConfig",
+    "blog.apps.BlogConfig",
+    "portfolio.apps.PortfolioConfig",
+    "core.apps.CoreConfig",
     # third party apps
     "ckeditor",
     "ckeditor_uploader",
     "adminsortable2",
     "phonenumber_field",
+    "django_htmx",
     # django apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = "myWebsite.urls"

@@ -1,3 +1,4 @@
+{% load django_htmx %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +8,7 @@
   <title>{% block title %}{% endblock %}</title>
   {% block meta %} {% endblock %}
   {% block scripts %}{% endblock %}
+  {% django_htmx_script %}
 </head>
 
 <body>
