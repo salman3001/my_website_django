@@ -6,4 +6,4 @@ class PortfolioConfig(AppConfig):
     name = "portfolio"
 
     def ready(self) -> None:
-        from . import signals
+        from portfolio import signals
